@@ -30,78 +30,74 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
-	@Autowired
-	
-private UserService ref;
-	
-	@Autowired
-	private UserRepo repo;
-	
-	@Autowired
-	private EmailUtil emailUtil;
-	
-	 @GetMapping("/")
-	    public String home() {
-	        return "index";  // Make sure index.html exists in templates
-	    }
 
-	    // Redirect base URL (/) to /users/
-	    @GetMapping("")
-	    public String rootRedirect() {
-	        return "redirect:/users/";
-	    }
+    @Autowired
+    private UserService ref;
 
-	    // Show Registration Page
-	    @GetMapping("/register")
-	    public String showRegisterPage() {
-	        return "register"; // register.html
-	    }
+    @Autowired
+    private UserRepo repo;
 
-	    // Handle Registration
-	    @PostMapping("/register")
-	    public String registerUser(@ModelAttribute User u, Model m) {
-	        User existingUser = repo.findByEmail(u.getEmail());
+    @Autowired
+    private EmailUtil emailUtil;
 
-	        if (existingUser != null) {
-	            m.addAttribute("message", "User already exists");
-	            return "register";
-	        }
+    // ✅ This handles root URL: https://dating-2-o06q.onrender.com
+    @GetMapping("/")
+    public String home() {
+        return "index";  // templates/index.html
+    }
 
-	        ref.saveUser(u);
-	        return "redirect:/users/login";
-	    }
+    // ✅ Show Registration Page
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "register"; // templates/register.html
+    }
 
-	    // Show Login Page
-	    @GetMapping("/login")
-	    public String showLoginPage() {
-	        return "login"; // login.html
-	    }
+    // ✅ Handle Registration
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User u, Model m) {
+        User existingUser = repo.findByEmail(u.getEmail());
 
-	    // Handle Login
-	    @PostMapping("/login")
-	    public String loginUser(@RequestParam String email,
-	                            @RequestParam String password,
-	                            Model model,
-	                            HttpSession session) {
+        if (existingUser != null) {
+            m.addAttribute("message", "User already exists");
+            return "register";
+        }
 
-	        User u = ref.getData(email, password);
+        ref.saveUser(u);
+        return "redirect:/login";
+    }
 
-	        if (u != null) {
-	            session.setAttribute("id", u.getId());
-	            session.setAttribute("name", u.getName());
-	            model.addAttribute("user", u);
+    // ✅ Show Login Page
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login"; // templates/login.html
+    }
 
-	            List<User> li = ref.findMatches(u.getId());
-	            model.addAttribute("matches", li != null ? li : new ArrayList<>());
+    // ✅ Handle Login
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String email,
+                            @RequestParam String password,
+                            Model model,
+                            HttpSession session) {
 
-	            return "dashboard"; // dashboard.html
-	        } else {
-	            model.addAttribute("error", "Invalid credentials");
-	            return "login";
-	    }
-	}
+        User u = ref.getData(email, password);
+
+        if (u != null) {
+            session.setAttribute("id", u.getId());
+            session.setAttribute("name", u.getName());
+            model.addAttribute("user", u);
+
+            List<User> li = ref.findMatches(u.getId());
+            model.addAttribute("matches", li != null ? li : new ArrayList<>());
+
+            return "dashboard"; // templates/dashboard.html
+        } else {
+            model.addAttribute("error", "Invalid credentials");
+            return "login";
+        }
+    }
+
+
 
 	
 	
