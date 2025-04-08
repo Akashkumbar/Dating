@@ -30,6 +30,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -41,10 +42,16 @@ public class UserController {
     @Autowired
     private EmailUtil emailUtil;
 
-    // Home page (at root "/")
+    // Redirect root to /users/
     @GetMapping("/")
     public String home() {
-        return "index";  // index.html in templates
+        return "index";  // Make sure index.html exists in templates
+    }
+
+    // Redirect base URL (/) to /users/
+    @GetMapping("")
+    public String rootRedirect() {
+        return "redirect:/users/";
     }
 
     // Show Registration Page
@@ -64,7 +71,7 @@ public class UserController {
         }
 
         ref.saveUser(u);
-        return "redirect:/login";
+        return "redirect:/users/login";
     }
 
     // Show Login Page
