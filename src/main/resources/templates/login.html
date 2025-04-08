@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDating - Register</title>
+    <style>
+        /* General Page Styling */
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            height:60%;
+            max-width: 400px;
+            text-align: center;
+            margin: 100px;
+        }
+
+        /* Form Title */
+        .form-title {
+       
+            font-size: 25px;
+            font-weight: bold;
+            color: #9b2335; /* Deep red for the title */
+       margin-top:1px;
+        }
+
+        /* Input Fields */
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 15px ;
+            border: 2px solid #e2e8f0; /* Light gray border */
+            border-radius: 25px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .input-field:focus {
+            border-color: #9b2335; /* Focus border color matches the deep red */
+            outline: none;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #9b2335; /* Deep red button */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: #7a1a2f; /* Darker red on hover */
+        }
+
+        /* Link to Login */
+        .existing-account {
+            margin-top: 20px;
+        }
+
+        .existing-account a {
+            color: #9b2335; /* Link in deep red */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .existing-account a:hover {
+            color: #7a1a2f; /* Darker red on hover */
+        }
+
+        /* Decorative Heart Icon */
+        .heart {
+            font-size: 30px;
+            margin-top: 20px;
+            color: #f39c12; /* Gold heart for a pop of color */
+            animation: bounce 1s infinite alternate;
+        }
+
+        /* Heart Animation */
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 30px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Registration Form -->
+    <div class="form-container">
+        <h1 class="form-title"> You Are One Step Away from Your Soulmate</h1>
+        <form action="/users/login" method="POST">
+                       <!-- Email Field -->
+            <input type="email" class="input-field" name="email" placeholder="Email Address" required>
+
+            <!-- Password Field -->
+            <input type="password" class="input-field" name="password" placeholder="Password" required>
+
+                      <button type="submit" class="btn-submit">Login</button>
+        </form>
+
+       
+        <!-- Decorative Heart Icon -->
+        <div class="heart">❤️</div>
+    </div>
+
+</body>
+</html>

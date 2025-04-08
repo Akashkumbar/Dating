@@ -1,0 +1,159 @@
+l<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDating - Register</title>
+    <style>
+        /* General Page Styling */
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            padding: 15px; /* Reduced padding */
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 20px;
+            height: 70%;
+        }
+
+        /* Form Title */
+        .form-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #9b2335; /* Deep red for the title */
+            margin-bottom: 15px; /* Reduced space below title */
+            margin-top: 1px;
+        }
+
+        /* Input Fields and Dropdown */
+        .input-field, .gender-dropdown {
+            width: 100%;
+            
+            padding: 6px; /* Reduced padding */
+            margin: 8px 0; /* Adjusted margin */
+            border: 2px solid #e2e8f0; /* Light gray border */
+            border-radius: 25px;
+            font-size: 14px; /* Smaller font size */
+            box-sizing: border-box;
+        }
+
+        .input-field:focus, .gender-dropdown:focus {
+            border-color: #9b2335; /* Focus border color matches the deep red */
+            outline: none;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 8px; /* Reduced padding */
+            background: #9b2335; /* Deep red button */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px; /* Smaller font size */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 15px; /* Space between form and button */
+        }
+
+        .btn-submit:hover {
+            background: #7a1a2f; /* Darker red on hover */
+        }
+
+        /* Link to Login */
+        .existing-account {
+            margin-top: 20px;
+        }
+
+        .existing-account a {
+            color: #9b2335; /* Link in deep red */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .existing-account a:hover {
+            color: #7a1a2f; /* Darker red on hover */
+        }
+
+        /* Decorative Heart Icon */
+        .heart {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #f39c12; /* Gold heart for a pop of color */
+            animation: bounce 1s infinite alternate;
+        }
+
+        /* Heart Animation */
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 30px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Registration Form -->
+    <div class="form-container">
+        <h1 class="form-title"> Join MyDating </h1>
+        <form action="/users/register" method="POST">
+            <!-- Name Field -->
+            <input type="text" class="input-field" name="name" placeholder="Full Name" required>
+
+            <!-- Gender Dropdown -->
+            <select name="gender" class="gender-dropdown" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <!-- Email Field -->
+            <input type="email" class="input-field" name="email" placeholder="Email Address" required>
+
+            <!-- Password Field -->
+            <input type="password" class="input-field" name="password" placeholder="Password" required>
+
+            <!-- Age Field -->
+            <input type="number" class="input-field" name="age" placeholder="Enter the Age" required>
+
+            <!-- Interests Field -->
+            <input type="text" class="input-field" name="interests" placeholder="Enter the Interests" required>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Sign Up</button>
+        </form>
+
+        <!-- Link to Login Page -->
+        <div class="existing-account">
+            <p>Already have an account? <a href="login">Log In</a><span class="heart">❤️</span></p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDating - Find Your Love</title>
+    <style>
+        /* General Page Styling */
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Main Container */
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* Heading */
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff4f78;
+        }
+
+        /* Tagline */
+        .tagline {
+            font-size: 16px;
+            color: #666;
+            margin: 10px 0 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #ff4f78;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e03a60;
+        }
+
+        .btn-secondary {
+            border: 2px solid #ff4f78;
+            color: #ff4f78;
+        }
+
+        .btn-secondary:hover {
+            background: #ff4f78;
+            color: white;
+        }
+
+        /* Decorative Heart */
+        .heart {
+            font-size: 30px;
+            margin-top: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        /* Heart Animation */
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">MyDating ❤️</h1>
+        <p class="tagline">Find someone who matches your vibe.</p>
+
+        <a href="register" class="btn btn-primary">Get Started</a>
+        <a href="login" class="btn btn-secondary">Login</a>
+
+        <div class="heart">💕</div>
+    </div>
+
+</body>
+</html>

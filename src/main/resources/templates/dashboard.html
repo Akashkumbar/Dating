@@ -1,0 +1,293 @@
+	<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Find Your Match</title>
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	    
+	    <style>
+	        body {
+	             background: linear-gradient(to right, #ff9a9e, #fad0c4);
+	            display: flex;
+	            justify-content: center;
+	            align-items: center;
+	            height: 100vh;
+	            flex-direction: column;
+	            margin: 0;
+	        }
+	
+	        h2 {
+	            font-size: 2.5rem;
+	            color: #9b2335; /* Deep Red */
+	            margin-bottom: 20px;
+	        }
+	
+	        /* Container to hold cards in a row */
+	        .card-container {
+	            display: flex;
+	            gap: 20px;
+	            overflow-x: auto;
+	            padding: 10px;
+	            width: 80%;
+	            justify-content: center;
+	        }
+	
+	        /* Individual profile card */
+	        .profile-card {
+	            width: 280px;
+	            height: 350px;
+	            background: white;
+	            border-radius: 15px;
+	            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	            display: flex;
+	         display: inline-block; /* Prevents wrapping */
+    text-align: center;
+    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+    position: relative;
+    flex-shrink: 0; /* Prevents shrinking */
+    margin-top: 10px;
+	        }
+	        
+	        .card-container {
+    display: flex;
+    flex-wrap: nowrap;  /* Prevents stacking */
+    gap: 20px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    padding: 10px;
+    width: 90%;  /* Adjusted width for better centering */
+    justify-content: flex-start;
+    white-space: nowrap; /* Prevents wrapping */
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #ccc transparent; /* Light scrollbar */
+}
+
+/* Hide default scrollbar for WebKit browsers */
+.card-container::-webkit-scrollbar {
+    height: 8px;
+}
+	.card-container::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 4px;
+}        
+	        
+	
+	        .profile-card:hover {
+	            transform: translateY(-10px);
+	            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+	        }
+	
+	        .profile-card img {
+	            width: 90px;
+	            height: 90px;
+	            border-radius: 50%;
+	            object-fit: cover;
+	            margin-bottom: 10px;
+	            border: 3px solid #f39c12; /* Gold border */
+	            margin-top: 10px;
+	        
+	        }
+	
+	        /* Profile Information */
+	        .profile-info {
+	            margin-bottom: 15px;
+	            color: #495057; /* Dark Gray */
+	        }
+	
+	        .profile-info p {
+	            margin: 5px 0;
+	        }
+	
+	        /* Buttons inside each card */
+	        .buttons {
+	            display: flex;
+	            justify-content: space-between;
+	            width: 100%;
+	            padding: 3px;
+	            position: absolute;
+	            bottom: 5px;
+	            height: 40px;
+	        }
+	
+	        .btn-accept, .btn-reject {
+	            padding: 10px 15px;
+	            font-size: 15px;
+	            border: none;
+	            border-radius: 5px;
+	            cursor: pointer;
+	            transition: background-color 0.3s ease;
+	           
+	        }
+	
+	        .btn-accept {
+	            background-color: #28a745;
+	            color: white;
+	             padding: 2px;
+	            width: 70px;
+	            margin-right: 40px;
+	        }
+	
+	        .btn-accept:hover {
+	            background-color: #218838;
+	        }
+	
+	        .btn-reject {
+	            background-color:rgb(255, 51, 51);
+	            color: white;
+	            padding: 2px;
+	            width: 70px;
+	            margin-left: 40px;
+	        }
+	
+	        .btn-reject:hover {
+	            background-color: #c82333;
+	        }
+	
+	        /* Responsive Design for Smaller Screens */
+	        @media (max-width: 768px) {
+	            .card-container {
+	                flex-direction: column;
+	                align-items: center;
+	            }
+	        }
+	        
+	       
+           h2 {
+    display: inline-flex; /* Aligns text and icon in the same line */
+    align-items: center;  /* Vertically centers the icon */
+    gap: 50px; /* Adds space between text and icon */
+}
+
+.icon {
+    font-size: 54px;
+    color: #ff4d79;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.icon:hover {
+    color: #e60050;
+}
+
+	        
+	        
+	    </style>
+	</head>
+	<body>
+	   <h2> Find Your Match 
+	      <a href="/users/notification"> 
+	      <div class="icon"><i class="fa-solid fa-message"></i></div></a> 
+	    </h2>
+	</div>
+	    <!-- Displaying User Profiles in a Row -->
+	    <div class="card-container">
+	        <div th:each="user, iterStat : ${matches}" 
+	             th:id="|user-${iterStat.index}|" 
+	             class="profile-card">
+	            
+	            <!-- Profile Image -->
+	            <img src="/images/image.jpg"  alt="Profile Pic">
+	            
+	
+	            <!-- Profile Info -->
+	            <div class="profile-info">
+	                <h3 th:text="${user.name}"></h3>
+	                <p>Gender: <span th:text="${user.gender}"></span></p>
+	                <p>Age: <span th:text="${user.age}"></span></p>
+	                <p>Email: <span th:text="${user.email}"></span></p>
+	                <p>Interests: <span th:text="${user.interests}"></span></p>
+	            </div>
+	
+	            <!-- Accept / Reject Buttons Inside Each Card -->
+	            <div class="buttons">
+	                <button class="btn-reject" onclick="removeCard(this)">Reject</button>
+<button class="btn-accept" 
+        th:data-id="${user.id}"
+        th:data-name="${user.name}"
+        th:data-email="${user.email}"
+        th:data-gender="${user.gender}"
+        th:data-age="${user.age}"
+        th:data-interests="${user.interests}"
+        onclick="acceptUser(this)">Accept</button>
+     </div>
+	        </div>
+	    </div>
+	
+	    <!-- JavaScript for Removing Cards -->
+	    <script>
+	        function removeCard(button) {
+	            let card = button.closest('.profile-card');//nearest ancestor will be captured only that not only anything means
+	            //the only that card not anything else
+	            card.style.transform = "translateX(100vw)";  // Slide out animation
+	            setTimeout(() => card.remove(), 500); // Remove after animation
+	        }
+	        function acceptUser(button) {
+	            let userId = button.getAttribute("data-id"); 
+	            console.log("User ID:", userId); 
+	            if (!userId) {
+	                alert("User ID is missing!");
+	                return;
+	            }
+
+	            let name = button.getAttribute("data-name");
+	            let email = button.getAttribute("data-email");
+	            let gender = button.getAttribute("data-gender");
+	            let age = button.getAttribute("data-age");
+	            let interests = button.getAttribute("data-interests");
+
+	            let notificationData = {
+	                receiver: Number(userId),
+	                message: `Accepted: ${name}, Email: ${email}, Gender: ${gender}, Age: ${age}, Interests: ${interests}`
+	            };
+
+	            fetch(`/users/interest?id=${userId}`, 
+	            		{
+	                method: "POST",
+	                headers: {
+	                    "Content-Type": "application/json"
+	                },
+	                body: JSON.stringify(notificationData)
+	            })
+	            .then(response => {
+	                if (response.ok) {
+	                    alert("Interest saved successfully!");
+	                    removeCard(button);
+	                } 
+	            });
+	        }
+	        
+	        
+	       
+
+
+
+	    </script>
+
+	
+	</body>
+	</html>
+	
+	<!-- let notificationData = {
+This creates a JavaScript object named notificationData.
+This object will contain the receiver's ID and a message with the user's details.
+
+receiver: Number(userId),
+The Number(userId) converts the userId (which is a string like "101") into a number type (101).
+This ensures that the userId is sent as a numeric value in the API request.
+
+message: `Accepted: ${name}, Email: ${email}, Gender: ${gender}, Age: ${age}, Interests: ${interests}`
+This creates a message like:
+
+Accepted: John, Email: john@gmail.com, Gender: Male, Age: 25, Interests: Music, Sports
+The template literal (backticks ``) allows embedding variables directly into the string using ${}.
+	 -->
+	<!-- fetch()	It is a JavaScript function used to send HTTP requests (GET, POST, PUT, DELETE) to a server.
+	        URL (/users/interest?id=${userId})	This is the API endpoint where the request is sent, along with userId as a query parameter.
+	        method: "POST"	This defines the request method (POST) used to send data.
+	        headers	It contains metadata about the request. 
+	        In this case, we tell the server that the data format is JSON.
+	        body: JSON.stringify()	
+	        Converts the JavaScript object (notificationData) into JSON format before sending it to the server.
+	        .then(response)	Handles the server response once the request is successful.
+	        .catch(error)	Catches any errors that occur during the request (network failure, API failure, etc.).
+	        response.ok	Returns true if the response status code is between 200-299 (successful).  -->
