@@ -78,30 +78,28 @@ private UserService ref;
 	
 	
 	@PostMapping("/login")
-	public String LoginUser(@RequestParam String email,@RequestParam String password,Model model,HttpSession session)
-	{
-		System.out.println("1");
-		 User u= ref.getData(email, password);
-		 
-		 session.setAttribute("id", u.getId());
-		 session.setAttribute("name", u.getName());
-		 if(u!=null)
-		 {
-		 
-		 model.addAttribute("user", u);
-		 List<User> li= ref.findMatches(u.getId());
-		 System.out.println("matches found:" + li.size());
-		 model.addAttribute("matches", li != null ? li : new ArrayList<>());
+	public String loginUser(@RequestParam String email,
+	                        @RequestParam String password,
+	                        Model model,
+	                        HttpSession session) {
 
-		// model.addAttribute("matches", li);
-		return "dashboard";
-		 }
-		 else
-		 {
-			 model.addAttribute("error","invalid User");
-			 return "login";
-		 }
+	    User u = ref.getData(email, password);
+
+	    if (u != null) {
+	        session.setAttribute("id", u.getId());
+	        session.setAttribute("name", u.getName());
+	        model.addAttribute("user", u);
+
+	        List<User> li = ref.findMatches(u.getId());
+	        model.addAttribute("matches", li != null ? li : new ArrayList<>());
+
+	        return "dashboard";
+	    } else {
+	        model.addAttribute("error", "Invalid credentials");
+	        return "login";
+	    }
 	}
+
 	
 	
 	
