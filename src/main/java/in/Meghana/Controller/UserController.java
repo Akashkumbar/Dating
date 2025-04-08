@@ -42,61 +42,64 @@ private UserService ref;
 	@Autowired
 	private EmailUtil emailUtil;
 	
-	@GetMapping("/")
-	public String home()
-	{
-		return "index";
-	}
-	
-	@GetMapping("/register")
-	public String showRegisterPage()
-	{
-		return "register";
-	}
-	
-	
-	@PostMapping("/register")
-	public String registerUser(@ModelAttribute User u, Model m) {
-	    User existingUser = repo.findByEmail(u.getEmail());  // Get user by email
-	    
-	    if (existingUser != null) {  // Check if user already exists
-	        m.addAttribute("message", "User already exists");
-	        return "register";  // Return the registration page instead of "null"
+	 @GetMapping("/")
+	    public String home() {
+	        return "index";  // Make sure index.html exists in templates
 	    }
 
-	    System.out.println("hi");
-	    ref.saveUser(u);
-	    return "redirect:/users/login";
-	}
+	    // Redirect base URL (/) to /users/
+	    @GetMapping("")
+	    public String rootRedirect() {
+	        return "redirect:/users/";
+	    }
 
-	
-	@GetMapping("/login")
-	public String showLoginPage()
-	{
-		return "login";
-	}
-	
-	
-	@PostMapping("/login")
-	public String loginUser(@RequestParam String email,
-	                        @RequestParam String password,
-	                        Model model,
-	                        HttpSession session) {
+	    // Show Registration Page
+	    @GetMapping("/register")
+	    public String showRegisterPage() {
+	        return "register"; // register.html
+	    }
 
-	    User u = ref.getData(email, password);
+	    // Handle Registration
+	    @PostMapping("/register")
+	    public String registerUser(@ModelAttribute User u, Model m) {
+	        User existingUser = repo.findByEmail(u.getEmail());
 
-	    if (u != null) {
-	        session.setAttribute("id", u.getId());
-	        session.setAttribute("name", u.getName());
-	        model.addAttribute("user", u);
+	        if (existingUser != null) {
+	            m.addAttribute("message", "User already exists");
+	            return "register";
+	        }
 
-	        List<User> li = ref.findMatches(u.getId());
-	        model.addAttribute("matches", li != null ? li : new ArrayList<>());
+	        ref.saveUser(u);
+	        return "redirect:/users/login";
+	    }
 
-	        return "dashboard";
-	    } else {
-	        model.addAttribute("error", "Invalid credentials");
-	        return "login";
+	    // Show Login Page
+	    @GetMapping("/login")
+	    public String showLoginPage() {
+	        return "login"; // login.html
+	    }
+
+	    // Handle Login
+	    @PostMapping("/login")
+	    public String loginUser(@RequestParam String email,
+	                            @RequestParam String password,
+	                            Model model,
+	                            HttpSession session) {
+
+	        User u = ref.getData(email, password);
+
+	        if (u != null) {
+	            session.setAttribute("id", u.getId());
+	            session.setAttribute("name", u.getName());
+	            model.addAttribute("user", u);
+
+	            List<User> li = ref.findMatches(u.getId());
+	            model.addAttribute("matches", li != null ? li : new ArrayList<>());
+
+	            return "dashboard"; // dashboard.html
+	        } else {
+	            model.addAttribute("error", "Invalid credentials");
+	            return "login";
 	    }
 	}
 
